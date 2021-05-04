@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.dao.SetmealDao">
+    <insert id="addSetmeal" parameterType="com.study.domain.Setmeal">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into t_setmeal(name, code, helpCode, sex, age, price, remark, attention, img)
+        values (#{name}, #{code}, #{helpCode}, #{sex}, #{age}, #{price}, #{remark}, #{attention}, #{img})
+    </insert>
+
+    <insert id="addSetmealCheckgroup" parameterType="hashMap">
+        insert into t_setmeal_checkgroup(setmeal_id, checkgroup_id)
+        values (#{setmealId}, #{checkgroupId})
+    </insert>
+
+    <update id="updateSetmeal" parameterType="com.study.domain.Setmeal">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        update t_setmeal
+        <set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSetmealCheckgroup" parameterType="int">
+        delete
+        from t_setmeal_checkgroup
+        where setmeal_id = #{setmealId}
+    </delete>
+
+    <delete id="deleteSetmeal" parameterType="int">
+        delete
+        from t_setmeal
+        where id = #{setmealId}
+    </delete>
+
+    <select id="findCheckgroupAll" resultType="com.study.domain.CheckGroup">
+        select *
+        from t_checkgroup
+    </select>
+
+    <select id="selectByCondition" resultType="com.study.domain.Setmeal">
+        select * from t_setmeal
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
+
+    <select id="findSetmealById" resultType="com.study.domain.Setmeal">
+        select *
+        from t_setmeal
+        where id = #{id}
+    </select>
+
+    <select id="selectSetmealCheckgroupById" parameterType="int" resultType="java.lang.Long">
+        select count(*)
+        from t_setmeal_checkgroup
+        where setmeal_id = #{setmealId}
+    </select>
+    <select id="findCheckgroupIdsBySetmealId" parameterType="int" resultType="java.lang.Integer">
+        select checkgroup_id
+        from t_setmeal_checkgroup
+        where setmeal_id = #{id}
+    </select>
+    <!--    查询所有套餐-->
+    <select id="findAll" resultType="com.study.domain.Setmeal">
+        select *
+        from t_setmeal
+    </select>
+
+    <select id="findCheckgroupCheckitemById" resultType="java.lang.Integer" parameterType="int">
+        select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{checkgroup}
+    </select>
+
+    <resultMap type="com.study.domain.Setmeal" id="baseResultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="helpCode" property="helpCode"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="price" property="price"/>
+        <result column="remark" property="remark"/>
+        <result column="attention" property="attention"/>
+        <result column="img" property="img"/>
+    </resultMap>
+    <resultMap type="com.study.domain.Setmeal"
+               id="findByIdResultMap"
+               extends="baseResultMap">
+        <collection property="checkGroups"
+                    javaType="ArrayList"
+                    ofType="com.study.domain.CheckGroup"
+                    column="id"
+                    select="com.study.dao.CheckGroupDao.findCheckGroupById">
+        </collection>
+    </resultMap>
+    <select id="findById" resultMap="findByIdResultMap">
+        select * from t_setmeal where id=#{id}
+    </select>
+
+</mapper>
