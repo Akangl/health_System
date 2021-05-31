@@ -119,23 +119,48 @@
                 //获取用户输入的电话号码
                 var telephone = this.orderInfo.telephone;
                 if (!checkTelephone(telephone)) {
+                    //校验手机号是否输入正确
                     this.$message.error("请输入正确的手机号码");
                     this.orderInfo.telephone = "";
                     return false;
                 }
                 validateCodeButton = $("#validateCodeButton")[0];
-                clock = window.setInterval(doLoop, 1000);
+                clock = window.setInterval(doLoop, 1000);//一秒执行一次
+                console.log("hello");
                 axios.post("/validateCode/send4order.do?telephone=" + telephone).then((res) => {
+                    //发送失败，弹出提示框
                     if (!res.data.flag) {
                         this.$message.error("验证码发送失败，请检查手机号输入是否正确!");
                     }
-                })
+                });
+                console.log("hello");
             },
+
             //提交预约
             submitOrder() {
+                //对用户输入的身份证号进行校验
+                var idCard = this.orderInfo.idCard;
+                if (!checkIdCard(idCard)) {
+                    //身份证号码输入不合法
+                    this.$message.error("身份证号码输入错误，请重新输入！");
+                    return false;
+                }
+
+                //发送ajax请求，提交表单数据到后台进行业务处理
+                axios.post("/order/submit.do", this.orderInfo).then((res) => {
+                        if (res.data.flag) {
+                            //预约成功，跳转到成功页面
+                            window.location.href = "orderSuccess.html?orderId=" + res.data.data;
+                        } else {
+                            //预约失败，提示信息
+                            this.$message.error(res.data.message);
+                        }
+                    }
+                )
             }
         },
         mounted() {
+            //发送ajax请求，根据套餐ID查询套餐信息，用于页面展示
             axios.post("/setmeal/findById.do?id=" + id).then((res) => {
                 if (res.data.flag) {
                     this.setmeal = res.data.data;

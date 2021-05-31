@@ -1,8 +1,13 @@
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\CheckItemServiceImpl.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\ValidateCodeServiceImpl.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\PermissionDao.java
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\SetmealDao.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\CheckGroupDao.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\RoleDao.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\CheckGroupServiceImpl.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\UserServiceImpl.java
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\OrderSettingDao.java
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\CheckItemDao.java
+F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\UserDao.java
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\OrderSettingServiceImpl.java
-F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\dao\CheckGroupDao.java
-F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\CheckGroupServiceImpl.java
 F:\Java_Project\health_System\health_parent\health_service_provider\src\main\java\com\study\service\impl\SetmealServiceImpl.java

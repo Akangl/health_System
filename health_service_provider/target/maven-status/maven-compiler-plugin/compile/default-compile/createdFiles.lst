@@ -1,8 +1,0 @@
-com\study\service\impl\CheckItemServiceImpl.class
-com\study\service\impl\SetmealServiceImpl.class
-com\study\dao\CheckItemDao.class
-com\study\dao\SetmealDao.class
-com\study\dao\CheckGroupDao.class
-com\study\dao\OrderSettingDao.class
-com\study\service\impl\OrderSettingServiceImpl.class
-com\study\service\impl\CheckGroupServiceImpl.class
